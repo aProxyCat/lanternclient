@@ -6,10 +6,7 @@
     <meta name="description" content="Lantern Client - A powerful tool.">
     <meta name="author" content="Your Name">
     <title>Lantern Client</title>
-
-    <!-- External CSS -->
     <link rel="stylesheet" href="styles.css">
-
     <style>
         /* General resets */
         * {
@@ -36,21 +33,21 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            z-index: 10;
+            width: 60px;  /* Adjust image size */
+            z-index: 10;  /* Ensure the icon stays on top */
         }
 
         /* Hero Section with GIF background */
         .hero {
             position: relative;
-            height: 100vh;
+            height: 100vh;  /* Adjust the height to be less tall */
             background: url('215982.gif') no-repeat center center/cover;
             overflow: hidden;
         }
 
         .hero-content {
             position: absolute;
-            top: 80px;
+            top: 80px; /* Adjust so it is below the icon */
             width: 100%;
             text-align: center;
             color: white;
@@ -59,7 +56,7 @@
         }
 
         .hero h2 {
-            font-size: 2rem;
+            font-size: 2rem;   /* Slightly smaller */
             margin-bottom: 10px;
         }
 
@@ -89,13 +86,13 @@
             transform: translate(-50%, -50%);
             text-align: center;
             margin-top: 0;
-            width: 500px;
-            height: 60px;
+            width: 500px;  /* Smaller width */
+            height: 60px;  /* Smaller height */
         }
 
         .search-bar input {
             padding: 10px;
-            font-size: 1.2rem;
+            font-size: 1.2rem; /* Smaller font size */
             width: 100%;
             height: 100%;
             border: 1px solid #ccc;
@@ -109,6 +106,11 @@
         .search-bar input:focus {
             background-color: rgba(255, 255, 255, 0.8);
             outline: none;
+        }
+
+        .search-results {
+            margin-top: 20px;
+            text-align: center;
         }
 
         /* Main content */
@@ -177,7 +179,7 @@
             text-decoration: underline;
         }
 
-        /* Styling for iframe */
+        /* Styling for iframe and URL input */
         .iframeWindow {
             width: 100%;
             height: 500px;
@@ -185,46 +187,55 @@
             margin-top: 20px;
         }
 
-        /* Search section */
-        .search-section {
+        .url-input-container {
             text-align: center;
             margin-top: 20px;
         }
 
-        .search-section input, .search-section button, .search-section select {
-            margin-top: 10px;
+        #urlInput {
+            padding: 10px;
+            font-size: 1.1rem;
+            width: 50%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #searchButton {
+            padding: 10px 20px;
+            background-color: #FF6F61;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        #searchButton:hover {
+            background-color: #ff3f2a;
+        }
+
+        /* Switcher dropdown */
+        .switcher-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #switcher {
             padding: 10px;
             font-size: 1rem;
+            border-radius: 5px;
         }
     </style>
-
-    <!-- Scripts for functionality -->
-    <script src="/uv/uv.bundle.js"></script>
-    <script src="/uv/uv.config.js"></script>
-    <script src="/baremux/index.js"></script>
-
-    <script>
-        if ("serviceWorker" in navigator) {
-            window.addEventListener("load", async () => {
-                await navigator.serviceWorker.register("/uv/sw.js");
-            });
-        }
-
-        // Handle URL input and iframe content loading
-        document.getElementById('searchButton').addEventListener('click', function() {
-            var url = document.getElementById('urlInput').value;
-            var iframe = document.getElementById('iframeWindow');
-            iframe.src = url;
-        });
-    </script>
 </head>
 <body>
 
     <!-- Icon Image -->
-    <img src="apps.png" alt="apps" class="icon-image">
+    <img src="apps.png" alt="apps" class="icon-image">  <!-- Adjust size of the image if needed -->
 
     <!-- Hero Section with GIF background -->
     <div class="hero">
+        <!-- Move Lantern Client text to above search bar -->
         <div class="hero-content">
             <h2>Lantern Client</h2>
         </div>
@@ -257,16 +268,22 @@
         </div>
     </section>
 
-    <!-- Search Section with URL Input and iframe -->
-    <div class="search-section">
+    <!-- URL Input and Search Button -->
+    <div class="url-input-container">
         <input type="text" id="urlInput" placeholder="Enter URL here">
         <button id="searchButton">Search Text</button>
+    </div>
+
+    <!-- iFrame for UV -->
+    <iframe id="iframeWindow" class="iframeWindow"></iframe>
+
+    <!-- Switcher Dropdown -->
+    <div class="switcher-container">
         <select id="switcher">
             <option value="">--Please Choose an Option--</option>
             <option value="epoxy">Epoxy</option>
             <option value="bare">Bare</option>
         </select>
-        <iframe id="iframeWindow" class="iframeWindow"></iframe>
     </div>
 
     <!-- Footer -->
@@ -275,5 +292,16 @@
         <p>Designed with ❤️ by Your Name | <a href="mailto:youremail@example.com">Contact Us</a></p>
     </footer>
 
-</body>
-</html>
+    <!-- JavaScript -->
+    <script src="/uv/uv.bundle.js"></script>
+    <script src="/uv/uv.config.js"></script>
+    <script src="/baremux/index.js"></script>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("/uv/sw.js");
+            });
+        }
+
+        const connection = new BareMux.BareMuxConnection("/baremux/worker
